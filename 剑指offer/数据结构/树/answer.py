@@ -151,7 +151,7 @@ class Tree(object):
             return node
         self.count +=1
         if self.count == k:
-            return root.data
+            return root
         node = self.kthnode(root.right, k)
         if node:
             return node
