@@ -141,4 +141,45 @@ def jishu_sort(origin):
                 origin.append(y)
     return origin
 
+"""
+堆排序(大顶堆) 小顶堆同理
+大顶堆，二叉树结构，每个根大于两个子节点
+https://blog.csdn.net/lerry13579/article/details/82052429
+     0
+   1   2
+ 3  4 5 6
+7 8
+"""
+def HeapSort(origin):
+    def heapadjust(origin, parent, length):
+        temp = origin[parent]
+        # 根的左节点
+        child = 2*parent+1
+        while child < length:
+            # 左右节点进行比较
+            if child+1< length and origin[child+1]>origin[child]:
+                child+=1
+            # 根最大退出
+            if origin[child]<temp:
+                break
+            # 深度搜索
+            origin[parent] = origin[child]
+            parent = child
+            child= 2*child+1
+        origin[parent] = temp
+
+    if not origin:
+        return []
+    count = len(origin)
+    # 先根据列表生成一个大顶堆
+    # 从最后一个满行堆最左侧的值开始
+    for i in range(0, count/2)[::-1]:
+        heapadjust(origin, i, count)
+    for j in range(1, count)[::-1]:
+        # 顶和最后一个值进行交换，选出最大值
+        origin[0], origin[j] = origin[j], origin[0]
+        # 剩余的元素再进行堆整合
+        heapadjust(origin, 0, j)
+    return origin
+
 print jishu_sort(a)
