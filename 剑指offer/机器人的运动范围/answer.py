@@ -68,7 +68,7 @@ class Solution:
 
         for i in range(m):
             for j in range(n):
-                dfs(0,0,m,n,k)
+                dfs(i,j,m,n,k)
                 return self.count
 s = Solution()
 m = 2

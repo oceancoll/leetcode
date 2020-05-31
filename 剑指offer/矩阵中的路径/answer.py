@@ -63,6 +63,7 @@ def dfs(origin, words, i, j, index):
     if len(words)-1==index:
         return True
     # 回溯出栈
+    # 对于按照顺序的才会有入栈和出栈，否则没有
     tmp = origin[i][j]
     # 标记
     origin[i][j] = "1"

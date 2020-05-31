@@ -25,7 +25,7 @@ def findMin(nums):
         return nums[0]
     # 二分法
     while left <= right:
-        mid = left + (right-left)/2
+        mid = (left+right)/2
         # 间断点
         # 考虑数组为奇偶的问题
         if nums[mid] > nums[mid+1]:

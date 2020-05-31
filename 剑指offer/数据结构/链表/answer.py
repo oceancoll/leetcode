@@ -178,10 +178,39 @@ class SingleLinkList(object):
     def merge(self, lists, left, right):
         if left == right:
             return lists[left]
-        mid = left + (right-left) / 2
+        mid = (left + right) / 2
         l1 = self.merge(lists, left, mid)
         l2 = self.merge(lists, mid+1, right)
         return self.mergeTwoLists(l1, l2)
+
+    def split_list(self, head):
+        """
+        根据奇偶位置将链表拆分为2个链表
+        https://www.cnblogs.com/terry-c/p/9866083.html
+        :param head:
+        :return:
+        """
+        jihead = ouhead = None
+        jicur = oucur = None
+        count = 0
+        while head:
+            if count % 2 ==1:
+                if not jicur:
+                    jihead = jicur = head
+                else:
+                    jicur.next = head
+                    jicur = jicur.next
+            else:
+                if not oucur:
+                    ouhead = oucur = head
+                else:
+                    oucur.next = head
+                    oucur = oucur.next
+            count+=1
+        # 因为是直接赋值链表位置，故带有下一位，因此将后面的全置为None
+        jicur.next = None
+        oucur.next = None
+        return jihead, ouhead
 
     def getIntersectionNode(self, headA, headB):
         # 找到两个单链表相交的起始节点
@@ -271,6 +300,44 @@ class SingleLinkList(object):
                 return meetnode
         return None
 
+    def addTwoNumbers(self, l1, l2):
+        # 链表求和
+        # 使用哨兵节点
+        """
+        https://leetcode-cn.com/problems/sum-lists-lcci/solution/goshuang-zhi-zhen-die-dai-ji-suan-by-kksopksjf/
+        给定两个用链表表示的整数，每个节点包含一个数位。
+        这些数位是反向存放的，也就是个位排在链表首部。
+        编写函数对这两个整数求和，并用链表形式返回结果。
+        示例：
+            输入：(7 -> 1 -> 6) + (5 -> 9 -> 2)，即617 + 295
+            输出：2 -> 1 -> 9，即912
+        示例：
+            输入：(6 -> 1 -> 7) + (2 -> 9 -> 5)，即617 + 295
+            输出：9 -> 1 -> 2，即912
+        """
+        # 临时数字和
+        tmp = 0
+        # 哨兵节点
+        sentinal = Node(0)
+        pre = sentinal
+        while l1 or l2:
+            # l1 取左侧位
+            if l1:
+                tmp+=l1.data
+                l1 = l1.next
+            # l2 取左侧位
+            if l2:
+                tmp+=l2.data
+                l2 = l2.next
+            # 求当前位的数字
+            sentinal.next = Node(tmp%10)
+            # 去除最低位
+            tmp = tmp/10
+            sentinal = sentinal.next
+        # 处理最后一位
+        if tmp:
+            sentinal.next = Node(tmp)
+        return pre.next
 
 # 初始化链表
 link = SingleLinkList()
