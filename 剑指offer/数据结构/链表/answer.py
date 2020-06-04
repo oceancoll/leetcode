@@ -330,14 +330,14 @@ class SingleLinkList(object):
                 tmp+=l2.data
                 l2 = l2.next
             # 求当前位的数字
-            sentinal.next = Node(tmp%10)
+            pre.next = Node(tmp%10)
             # 去除最低位
             tmp = tmp/10
-            sentinal = sentinal.next
+            pre = pre.next
         # 处理最后一位
         if tmp:
-            sentinal.next = Node(tmp)
-        return pre.next
+            pre.next = Node(tmp)
+        return sentinal.next
 
 # 初始化链表
 link = SingleLinkList()

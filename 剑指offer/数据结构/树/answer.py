@@ -183,6 +183,23 @@ class Tree(object):
             return True
         return abs(self.maxdepth(root.left)-self.maxdepth(root.right))<=1 and self.isbalance(root.left) and self.isbalance(root.right)
 
+    def mergeTrees(self, t1, t2):
+        # 合并两个二叉树
+        # 节点值相加，t2合并到t1，左侧和左侧合并，右侧和右侧合并
+        """
+        给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
+        你需要将他们合并为一个新的二叉树。
+        合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，
+        否则不为 NULL 的节点将直接作为新二叉树的节点。
+        https://leetcode-cn.com/problems/merge-two-binary-trees
+        """
+        if not t1 or not t2:
+            return t1 if t1 else t2
+        t1.data += t2.data
+        t1.left = self.mergeTrees(t1.left, t2.left)
+        t1.right = self.mergeTrees(t1.right, t2.right)
+        return t1
+
     def isSymmetrical(self, root):
         # 是否对称二叉树
         # 左右节点都没有值，则是
@@ -245,12 +262,12 @@ class Tree(object):
 
     def isSubtree(self,root1,root2):
         # 有相同节点时，判断其余节点是否相同
-        if not root2:
+        if not root1 and not root2:
             return True
-        if not root1:
+        if not root1 or not root2:
             return False
         if root1.data == root2.data:
-            return self.isSubtree(root1.left, root2.left) and self.isbalance(root1.right, root2.right)
+            return self.isSubtree(root1.left, root2.left) and self.isSubtree(root1.right, root2.right)
         return False
 
     def maxPathSum(self, root):
@@ -373,7 +390,23 @@ class Tree(object):
             return left
         return root
 
-
+    def increasingBST(self, root):
+        # 根据给定的二叉树，将其按照中序排列的方式重新排列
+        # 使节点均为右侧节点
+        # 先将原二叉树中序遍历的结果输出，然后根据中序遍历的结果，递归成最新树
+        # 通过哨兵节点的方式
+        # https://leetcode-cn.com/problems/increasing-order-search-tree/
+        def inorder(root):
+            if not root:
+                return []
+            return inorder(root.left) + [root.data] + inorder(root.right)
+        res = inorder(root)
+        newroot = Node(-1)
+        tmp = newroot
+        while res:
+            tmp.right = Node(res.pop(0))
+            tmp = tmp.right
+        return newroot.right
 
 
 
