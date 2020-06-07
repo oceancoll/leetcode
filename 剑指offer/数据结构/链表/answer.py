@@ -149,6 +149,32 @@ class SingleLinkList(object):
             head, prenode = nextnode, head
         return prenode
 
+    def swapPairs(self, head):
+        # 给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+        # 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+        # 示例:
+        # 给定 1->2->3->4, 你应该返回 2->1->4->3.
+        # https://leetcode-cn.com/problems/swap-nodes-in-pairs/solution/xian-jian-san-ge-yin-yong-zhi-xiang-san-ge-jie-dia/
+
+        # 新建2个引用指向一个节点，并将这个节点的next指向head，用以记录初始节点
+        sentinal = Node(0)
+        sentinal.next = head
+        pre = sentinal
+        while pre.next and pre.next.next:
+            # 分别拿3个引用指向这三个节点
+            a = pre.next
+            b = pre.next.next
+            c = pre.next.next.next
+            # 然后改变这三个节点之间的指向关系，原本是->a->b->c，改成了->b->a->c
+            pre.next = a
+            a.next = b
+            b.next = c
+            # 改变次序后，将temp往后传递两位
+            pre = pre.next.next
+        # 最后返回初始节点
+        return sentinal.next
+
+
     def mergeTwoLists(self, l1, l2):
         # 合并两个有序链表
         # 将两个升序链表合并为一个新的升序链表并返回。
