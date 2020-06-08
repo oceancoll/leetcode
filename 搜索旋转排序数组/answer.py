@@ -17,6 +17,7 @@ https://leetcode-cn.com/problems/search-in-rotated-sorted-array/solution/sou-suo
 """
 def search(nums, target):
     """
+    搜索旋转排序数组(无重复数)
     二分法解决
     :param nums:
     :param target:
@@ -47,3 +48,11 @@ def search(nums, target):
     # 判断left的值是否等于target
     return left if nums[left]==target else -1
 print search([4,5,6,7,0,1,2],0)
+
+"""
+81. 搜索旋转数组，判断一个target数是否存在旋转数组中
+有重复数的存在
+https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/
+"""
+
+
