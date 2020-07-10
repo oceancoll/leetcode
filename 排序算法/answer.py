@@ -144,6 +144,7 @@ def jishu_sort(origin):
 """
 堆排序(大顶堆) 小顶堆同理
 大顶堆，二叉树结构，每个根大于两个子节点
+时间复杂度nlogn 不稳定
 https://blog.csdn.net/lerry13579/article/details/82052429
      0
    1   2

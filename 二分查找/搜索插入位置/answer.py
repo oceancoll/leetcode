@@ -20,6 +20,9 @@ https://leetcode-cn.com/problems/search-insert-position/solution/er-fen-fa-by-li
 """
 def searchInsert(nums, target):
     count = len(nums)
+    # 目标值大于最大值
+    if target>nums[-1]:
+        return count
     left = 0
     right = count-1
     ans = -1
@@ -31,4 +34,5 @@ def searchInsert(nums, target):
         else:
             left = mid+1
     return ans
+print searchInsert([1,3,5,6],7)
 
