@@ -29,6 +29,7 @@ def fib2(n):
     list1 = [0, 1]
     while n > 0:
         list1[0], list1[1] = list1[1], list1[0]+list1[1]
+        n-=1
     return list1[0]
 
 
@@ -47,6 +48,7 @@ def step2(n):
     list1 = [1, 1]
     while n > 0:
         list1[0], list1[1] = list1[1], list1[0]+list1[1]
+        n-=1
     return list1[0]
 
 
