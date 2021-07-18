@@ -44,6 +44,9 @@ print longestCommonSubsequence(text1, text2)
 最长公共字串
 和最长公共子序列相比，是中间不能截断，需要是连续的字符串
 思路同上：均使用dp，但因为不能截断，因此只要判断两个字符串相同的情况即可
+
+输入："1AB2345CD","12345EF"
+输出："2345"
 """
 def Lcs(text1, text2):
     m = len(text1)
@@ -53,7 +56,7 @@ def Lcs(text1, text2):
     dp = [[0 for _ in range(n+1)] for _ in range(m+1)]
     for i in range(1, m+1):
         for j in range(1, n+1):
-            if text1[i]==text2[j]:
+            if text1[i-1]==text2[j-1]:
                 dp[i][j] = dp[i-1][j-1] + 1
                 if maxlen<dp[i][j]:
                     maxlen = dp[i][j]
@@ -62,3 +65,4 @@ def Lcs(text1, text2):
         return ""
     else:
         return text1[index-maxlen:index]
+print Lcs("1AB2345CD","12345EF")
