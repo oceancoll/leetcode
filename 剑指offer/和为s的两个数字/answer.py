@@ -30,3 +30,22 @@ def twoSum(nums, target):
         else:
             i+=1
     return []
+
+"""
+无序数组的两数之和
+输入：[3,2,4],6
+输出：[2,4]
+"""
+def twoSumB(arr, target):
+    """
+    解法1：第一层for循环从第一个index开始，第二层for循环从i+1位置开始，求和判断两数和是否满足
+    解法2：通过字典的方式，记录已经遍历过的值
+    """
+    m = {}
+    for i in arr:
+        if m.get(target-i):
+            result = [i, target-i]
+            return result
+        m[i] = True
+    return []
+print twoSumB([3,2,4],6)
