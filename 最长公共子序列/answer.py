@@ -25,19 +25,40 @@
 https://leetcode-cn.com/problems/longest-common-subsequence/solution/python-xiao-lu-yi-ban-dan-shi-sheng-zai-jian-duan-/
 """
 def longestCommonSubsequence(text1, text2):
-    # 有一个不存在则返回0
-    if not text1 or not text2:
-        return 0
     m = len(text1)
     n = len(text2)
-    dp = [[0 for _ in range(n+1)]for _ in range(m+1)]
-    for i in range(m):
-        for j in range(n):
-            if text1[i]==text2[j]:
-                dp[i+1][j+1] = dp[i][j]+1
+    dp = [[0 for _ in range(n+1)] for _ in range(m+1)]
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if text1[i-1]==text2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
             else:
-                dp[i+1][j+1] = max(dp[i+1][j], dp[i][j+1])
-    return dp[-1][-1]
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp[m][n]
 text1 = "abcde"
 text2 = "ace"
 print longestCommonSubsequence(text1, text2)
+
+
+"""
+最长公共字串
+和最长公共子序列相比，是中间不能截断，需要是连续的字符串
+思路同上：均使用dp，但因为不能截断，因此只要判断两个字符串相同的情况即可
+"""
+def Lcs(text1, text2):
+    m = len(text1)
+    n = len(text2)
+    maxlen = 0  # 用于记录最长的字符长度
+    index = 0  # 用于记录最后一次相同字符串的位置
+    dp = [[0 for _ in range(n+1)] for _ in range(m+1)]
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if text1[i]==text2[j]:
+                dp[i][j] = dp[i-1][j-1] + 1
+                if maxlen<dp[i][j]:
+                    maxlen = dp[i][j]
+                    index = i
+    if maxlen == 0:
+        return ""
+    else:
+        return text1[index-maxlen:index]
