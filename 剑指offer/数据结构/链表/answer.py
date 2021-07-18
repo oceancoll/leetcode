@@ -172,6 +172,42 @@ class SingleLinkList(object):
         # 最后返回初始节点
         return sentinal.next
 
+    def reverseKGroup(self, head, k):
+        """
+        给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
+        输入：head = [1,2,3,4,5], k = 3
+        输出：[3,2,1,4,5]
+        不足的保持原状即可
+
+        用栈，我们把 k 个数压入栈中，然后弹出来的顺序就是翻转的！
+        这里要注意几个问题：
+            第一，剩下的链表个数够不够 k 个（因为不够 k 个不用翻转）；
+            第二，已经翻转的部分要与剩下链表连接起来。
+        """
+        sentinal = Node(0)
+        pre = sentinal
+        while True:
+            count = k
+            tmp = head
+            stack = []
+            # k个节点入栈
+            while count and tmp:
+                stack.append(tmp)
+                tmp = tmp.next
+                count-=1
+            # 如果不足k个则不用反转
+            if count:
+                pre.next = head
+                break
+            # 弹出顺序已经反向
+            while stack:
+                pre.next = stack.pop()
+                pre = pre.next
+            # 与剩下的部分连接起来
+            pre.next = tmp
+            # 重新赋值剩余部分
+            head = tmp
+        return sentinal.next
 
     def mergeTwoLists(self, l1, l2):
         # 合并两个有序链表
