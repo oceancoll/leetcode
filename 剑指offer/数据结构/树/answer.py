@@ -13,6 +13,7 @@ class Tree(object):
         self.count = 0
         self.max_sum = float('-inf')
         self.max_num = 0
+        self.pre_value = float('-inf')
 
     def add(self, data):
         # 添加子节点
@@ -408,6 +409,47 @@ class Tree(object):
             tmp = tmp.right
         return newroot.right
 
+    def isValidBST(self, root):
+        """
+        判断一个二叉树是否为二叉搜索树
+        假设一个二叉搜索树具有如下特征：
+            节点的左子树只包含小于当前节点的数。
+            节点的右子树只包含大于当前节点的数。
+            所有左子树和右子树自身必须也是二叉搜索树。
+        解题方案：
+            一个二叉搜索树的中序遍历是递增的
+        """
+        if not root:
+            return True
+        if not self.isValidBST(root.left):
+            return False
+        if root.data <= self.pre_value:
+            return False
+        self.pre_value = root.data
+        return self.isValidBST(root.right)
+
+    def isCompleteTree(self, root):
+        """
+        是否为完全二叉树
+        完全二叉树的定义：
+            若二叉树的深度为h，除h层外，其他各层的节点数都已经最大值。h层所有节点都集中在最左边
+        思路：
+            通过层级遍历的方式，当出现node节点的右节点存在而左节点不存在。
+            或者当某父节点只有左节点时，而此时该左节点有左或者右子节点时，均不满足。因此此时说明上一层不满
+        """
+        flag = False # 上一层只有左节点的标志位
+        queue = [root]
+        while queue:
+            node = queue.pop(0)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+            if (not node.left and node.right) or (flag and (node.left or node.right)):
+                return False
+            elif not node.right:
+                flag = True
+        return True
 
 
 

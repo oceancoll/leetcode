@@ -149,7 +149,7 @@ class SingleLinkList(object):
             head, prenode = nextnode, head
         return prenode
 
-    def swapPairs(self, head):
+    def swapPairs(self):
         # 给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
         # 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
         # 示例:
@@ -157,20 +157,18 @@ class SingleLinkList(object):
         # https://leetcode-cn.com/problems/swap-nodes-in-pairs/solution/xian-jian-san-ge-yin-yong-zhi-xiang-san-ge-jie-dia/
 
         # 新建2个引用指向一个节点，并将这个节点的next指向head，用以记录初始节点
+        head = self.head
         sentinal = Node(0)
         sentinal.next = head
         pre = sentinal
         while pre.next and pre.next.next:
             # 分别拿3个引用指向这三个节点
-            a = pre.next
-            b = pre.next.next
-            c = pre.next.next.next
-            # 然后改变这三个节点之间的指向关系，原本是->a->b->c，改成了->b->a->c
-            pre.next = a
-            a.next = b
-            b.next = c
-            # 改变次序后，将temp往后传递两位
-            pre = pre.next.next
+            node1 = pre.next
+            node2 = pre.next.next
+            pre.next = node2
+            node1.next = node2.next
+            node2.next = node1
+            pre = node1
         # 最后返回初始节点
         return sentinal.next
 
