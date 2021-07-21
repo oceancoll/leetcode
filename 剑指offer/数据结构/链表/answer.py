@@ -137,6 +137,25 @@ class SingleLinkList(object):
             slow = slow.next
         return slow
 
+    def removeNthFromEnd(self, head, n):
+        """
+        删除链表倒数第n个节点
+        思路：使用临时节点的方式与快慢指针
+        因为n恰好在n节点上，故需要向上取一位
+        """
+        sentinal = Node(0)
+        sentinal.next = head
+        slow, fast = sentinal, head
+        for i in range(n):
+            fast = fast.next
+        while fast:
+            fast = fast.next
+            slow = slow.next
+        slow.next = slow.next.next
+        return sentinal.next
+
+
+
     def reverseList(self):
         # 反转链表，生成新的链表
         # 使用双指针迭代
@@ -398,6 +417,45 @@ class SingleLinkList(object):
         if tmp:
             pre.next = Node(tmp)
         return sentinal.next
+
+    def addTwoNumbers2(self, l1, l2):
+        # 链表求和
+        # 使用哨兵节点
+        """
+        https://www.nowcoder.com/practice/c56f6c70fb3f4849bc56e33ff2a50b6b
+        给定两个用链表表示的整数，每个节点包含一个数位。
+        正向求和，也就是937+63=1000
+        编写函数对这两个整数求和，并用链表形式返回结果。
+        示例：
+            链表 1 为 9->3->7，链表 2 为 6->3，
+            最后生成新的结果链表为 1->0->0->0。
+        思路：和反向求和相同，只是在求和前和求和后，进行反转链表即可
+        """
+        # 临时数字和
+        l1 = self.reverseList(l1)
+        l2 = self.reverseList(l2)
+        tmp = 0
+        # 哨兵节点
+        sentinal = Node(0)
+        pre = sentinal
+        while l1 or l2:
+            # l1 取左侧位
+            if l1:
+                tmp+=l1.data
+                l1 = l1.next
+            # l2 取左侧位
+            if l2:
+                tmp+=l2.data
+                l2 = l2.next
+            # 求当前位的数字
+            pre.next = Node(tmp%10)
+            # 去除最低位
+            tmp = tmp/10
+            pre = pre.next
+        # 处理最后一位
+        if tmp:
+            pre.next = Node(tmp)
+        return self.reverseList(sentinal.next)
 
 # 初始化链表
 link = SingleLinkList()

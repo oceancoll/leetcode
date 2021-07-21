@@ -391,6 +391,24 @@ class Tree(object):
             return left
         return root
 
+    def lowestCommonAncestor2(self, root, p, q):
+        # 二叉树的最近公共祖先
+        # root: 树 p:节点的数值  q：节点b的数值
+        # https://www.nowcoder.com/practice/e0cc33a83afe4530bcec46eba3325116
+        # 当树不存在或者与任意一个节点相同
+        def bfs(root, p, q):
+            if not root or root.data ==p or root.data==q:
+                return root
+            # 左树找两个节点
+            left = self.lowestCommonAncestor(root.left, p, q)
+            right = self.lowestCommonAncestor(root.right, p,q)
+            if not left:
+                return right
+            if not right:
+                return left
+            return root
+        return bfs(root, p, q).val
+
     def increasingBST(self, root):
         # 根据给定的二叉树，将其按照中序排列的方式重新排列
         # 使节点均为右侧节点
