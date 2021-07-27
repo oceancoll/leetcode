@@ -39,6 +39,24 @@ text1 = "abcde"
 text2 = "ace"
 print longestCommonSubsequence(text1, text2)
 
+def longestCommonSubsequenceWithResult(text1, text2):
+    """
+    返回最长公共子序列实际的结果，需要将字符保存在dp中
+    """
+    m = len(text1)
+    n = len(text2)
+    dp = [['' for _ in range(n+1)] for _ in range(m+1)]
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if text1[i-1]==text2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + text1[i-1]
+            else:
+                if len(dp[i-1][j])>len(dp[i][j-1]):
+                    dp[i][j] = dp[i-1][j]
+                else:
+                    dp[i][j] = dp[i][j-1]
+    return dp[m][n]
+print longestCommonSubsequenceWithResult("9A8C7D6B54","B9D87A654A")
 
 """
 最长公共字串
