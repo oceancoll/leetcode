@@ -469,7 +469,24 @@ class Tree(object):
                 flag = True
         return True
 
-
+    def pathSum(self, root, sum):
+        """
+        二叉树中找到，根节点到叶子节点的和为sum的路径
+        深度遍历，不断地减少target的值，当为叶子节点时，判断叶子节点的value是否与剩余target相同。则加入res结果
+        对左树和右树进行递归查找
+        """
+        res = []
+        def dfs(rootnode, target, onesolution):
+            if not rootnode:
+                return
+            if not rootnode.left and not rootnode.right:
+                if rootnode.data == target:
+                    res.append(onesolution+[rootnode.data])
+                    return
+            dfs(rootnode.left, target-rootnode.data, onesolution+[rootnode.data])
+            dfs(rootnode.right, target-rootnode.data, onesolution+[rootnode.data])
+        dfs(root, sum, [])
+        return res
 
 def rebuildtree(preorder, inorder):
     """
