@@ -312,16 +312,14 @@ class SingleLinkList(object):
         # 当不同时，慢指针向前移动一位，同时快指针的值赋给慢指针
         # 快指针到头后，将慢指针指向空
         # https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/solution/dong-hua-yan-shi-83-shan-chu-pai-xu-lian-biao-zhon/
-        if not (head and head.next):
-            return head
-        i, j = head, head
-        while j:
-            if i.data != j.data:
-                i = i.next
-                i.data = j.data
-            j = j.next
-        i.next = None
-        return head
+        while head and head.next:
+            if head.data == head.next.data:
+                val = head.data
+                curr = head
+                while curr and curr.data == val:
+                    curr = curr.next
+                head.next = curr
+            head = head.next
 
     def deleteDuplicatesii(self, head):
         # 删除排序链表中的连续重复元素(连续重复值则均不保留)
@@ -331,19 +329,19 @@ class SingleLinkList(object):
         # 当head节点当前值与head下一个节点值不同时，则哨兵节点指向head节点，head节点向后搜索
         # 最后输出哨兵节点(去除掉临时节点)
         # https://blog.csdn.net/u010005281/article/details/80232730
-        tmpnode = Node(0)
-        tmpnode.next = head
-        last = tmpnode
-        while head and head.next:
-            if head.data == head.next.data:
-                value = head.data
-                while head and head.data == value:
-                    head = head.next
-                last.next = head
+        sentinal = Node(0)
+        sentinal.next = head
+        pre, curr = sentinal, head
+        while curr and curr.next:
+            if curr.data == curr.next.data:
+                val = curr.data
+                while curr and curr.data == val:
+                    curr = curr.next
+                pre.next = curr
             else:
-                last = head
-                head = head.next
-        return tmpnode.next
+                pre = curr
+                curr = curr.next
+        return sentinal.next
 
     def hasCycle(self, head):
         # 判断链表是否有环
