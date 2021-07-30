@@ -455,6 +455,47 @@ class SingleLinkList(object):
             pre.next = Node(tmp)
         return self.reverseList(sentinal.next)
 
+    def sortInList(self, head):
+        """
+        给定一个无序单链表，实现单链表的排序(按升序排序)
+        输入：[1,3,2,4,5]
+        返回值：{1,2,3,4,5}
+        思路：
+        通过快慢指针的方式，将链表分为2部分，然后使用归并排序的方式，进行排序
+        """
+        def merge(left, right):
+            sentinal = Node(0)
+            pre = sentinal
+            while left and right:
+                if left:
+                    pre.next = left
+                    pre = pre.next
+                    left = left.next
+                else:
+                    pre.next = right
+                    pre = pre.next
+                    right = right.next
+            if left:
+                pre.next = left
+            if right:
+                pre.next = right
+            return sentinal.next
+
+        if not head or not head.next:
+            return head
+        slow = head
+        fast = head
+        while fast.next and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        mid = slow.next
+        slow.next = None
+        left = self.sortInList(head)
+        right = self.sortInList(mid)
+        return merge(left, right)
+
+
+
 # 初始化链表
 link = SingleLinkList()
 # 分别向尾部插入2，3，4
