@@ -286,6 +286,7 @@ class SingleLinkList(object):
                     oucur.next = head
                     oucur = oucur.next
             count+=1
+            head = head.next
         # 因为是直接赋值链表位置，故带有下一位，因此将后面的全置为None
         jicur.next = None
         oucur.next = None
@@ -493,6 +494,32 @@ class SingleLinkList(object):
         left = self.sortInList(head)
         right = self.sortInList(mid)
         return merge(left, right)
+
+    def reverseBetween(self, head, m, n):
+        """
+        链表指定区域的反转
+        https://leetcode-cn.com/problems/reverse-linked-list-ii/solution/fan-zhuan-lian-biao-ii-by-leetcode-solut-teyq/
+        pre:为待反转节点的前一个节点
+        curr:待反转节点的第一个节点
+        next:curr的下一个节点
+        步骤1：找到curr的下一个节点
+        步骤2：将curr的next指向next.next
+        步骤3：将next的下一个指向pre的下一个
+        步骤4：将pre的下一个指向next节点
+        最后返回虚拟节点的next
+        """
+        sentinal = Node(0)
+        sentinal.next = head
+        pre = sentinal
+        for _ in range(m-1):
+            pre = pre.next
+        curr = pre.next
+        for _ in range(n-m):
+            next = curr.next
+            curr.next = next.next
+            next.next = pre.next
+            pre.next = next
+        return sentinal.next
 
 
 
