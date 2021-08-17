@@ -39,5 +39,5 @@ def searchRange(nums, target):
     return result
 
 a = [5,7,7,8,8,10]
-print searchRange(a, 6)
+print searchRange(a, 5)
 print searchRange(a, 8)

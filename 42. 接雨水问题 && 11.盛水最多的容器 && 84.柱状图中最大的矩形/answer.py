@@ -74,7 +74,7 @@ def maxArea(height):
         else:
             right-=1
     return maxsum
-
+print maxArea([1,8,6,2,5,4,8,3,7])
 """
 """
 

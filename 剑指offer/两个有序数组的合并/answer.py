@@ -31,3 +31,4 @@ def merge(nums1, m, nums2, n):
     # nums2中前面比nums1中小的数直接添加到nums1的前面
     nums1[:p2+1] = nums2[:p2+1]
     return nums1
+merge([2,5,6,0,0,0],3,[1,2,3],3)

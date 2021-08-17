@@ -7,7 +7,7 @@
 3. 找到最右侧的
 """
 nums = [1,3,3,3,4,5]
-target = 4
+target = 3
 def erfen1(nums, target):
     left = 0
     right = len(nums)-1
@@ -20,7 +20,7 @@ def erfen1(nums, target):
         else:
             left = mid + 1
     return -1
-# print erfen1(nums, target)
+print erfen1(nums, target)
 
 def erfen2(nums, target):
     # 最左侧
@@ -38,7 +38,7 @@ def erfen2(nums, target):
     if left>=len(nums) or nums[left] != target:
         return -1
     return left
-# print erfen2(nums, 3)
+print erfen2(nums, 3)
 
 
 def erfen3(nums, target):
