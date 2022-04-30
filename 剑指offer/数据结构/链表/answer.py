@@ -60,6 +60,7 @@ class SingleLinkList(object):
             cur = self.head
             while cur and count !=k:
                 cur = cur.next
+                count += 1
             node.next = cur.next
             cur.next = node
             self.head = cur
