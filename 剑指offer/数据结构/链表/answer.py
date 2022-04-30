@@ -5,6 +5,12 @@ class Node(object):
         self.data = data
         self.next = None
 
+"""
+总结：关于哨兵节点的使用
+需要删除节点的，需要pre,curr
+不删除的，只交换的用pre+head
+不删除的，添加的用pre无head
+"""
 class SingleLinkList(object):
     def __init__(self):
         self.head = None
