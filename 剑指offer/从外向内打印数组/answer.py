@@ -28,7 +28,7 @@ def printMatrix(matrix):
         if y0<yn:
             # 从下到上
             for i in range(xn-1, x0, -1):
-                result.append(matrix[i][x0])
+                result.append(matrix[i][y0])
         x0+=1
         y0+=1
         xn-=1
