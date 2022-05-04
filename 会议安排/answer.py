@@ -18,7 +18,7 @@ def minmumNumberOfHost(startEnds):
     res = 0
     index = 0
     for i in range(count):
-        if start[i]>=end[index]:
+        if start[i]>=end[index]: # 开始的时间大于结束的时间，说明这条已经被算过了
             index+=1
         else:
             res+=1
