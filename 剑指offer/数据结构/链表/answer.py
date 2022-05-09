@@ -475,7 +475,7 @@ class SingleLinkList(object):
             sentinal = Node(0)
             pre = sentinal
             while left and right:
-                if left:
+                if left.val<right.val:
                     pre.next = left
                     pre = pre.next
                     left = left.next
@@ -493,7 +493,7 @@ class SingleLinkList(object):
             return head
         slow = head
         fast = head
-        while fast.next and fast.next:
+        while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
         mid = slow.next
